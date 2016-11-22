@@ -1,0 +1,5 @@
+function destroy()
+{
+	echo "Stopping $(docker stop $1)" 
+	echo "Deleting $(docker rm -f $1)" 
+}

@@ -1,0 +1,6 @@
+function drun()
+{
+	LDID=$(docker run -d $@)
+	echo $LDID
+	export $LDID
+}

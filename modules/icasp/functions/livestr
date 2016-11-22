@@ -1,0 +1,4 @@
+function livestr()
+{
+	livestreamer --hls-segment-threads 4 twitch.tv/$1 best &
+}

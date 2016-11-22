@@ -14,10 +14,14 @@
   fi
 } &!
 
+# Clear terminal and say hello.
+clear
+echo Welcome on icterm `whoami`.
+
 # Print a random, hopefully interesting, adage.
 if (( $+commands[fortune] )); then
   if [[ -t 0 || -t 1 ]]; then
-    fortune -s
+    fortune
     print
   fi
 fi

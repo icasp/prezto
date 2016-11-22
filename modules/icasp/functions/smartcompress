@@ -1,0 +1,15 @@
+smartcompress() {
+	if [ $2 ]; then
+		case $2 in
+			tgz | tar.gz)   tar -zcvf $1.$2 $1 ;;
+			tbz2 | tar.bz2) tar -jcvf $1.$2 $1 ;;
+			tar)            tar -cvf $1.$2  $1 ;;
+			gz | gzip)      gzip $1 ;;
+			bz2 | bzip2)    bzip2 $1 ;;
+			zip)		zip -rv $1.zip $1 ;;
+			*) 		echo "Error: $2 is not a valid compression type" ;;
+		esac
+	else
+		smartcompress $1 tar.gz
+	fi
+}

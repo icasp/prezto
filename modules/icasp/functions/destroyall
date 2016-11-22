@@ -1,0 +1,4 @@
+function destroyall()
+{
+	docker rm $(docker ps -a | grep "Exit [1-255]" | awk '{ print $1 }')
+}

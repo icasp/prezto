@@ -1,0 +1,20 @@
+function metaclean ()
+{
+	if [ ! -z $1 ]
+	then
+		confirm=''
+		vared -p "Go for '$1' ? [y/N] : " -c confirm
+		case "$confirm" in
+			[Yy*]);
+				find -E $1 -regex '.*/(._*|.DS_Stor.*|Thu*db)' -exec rm -f {} \;
+				echo 'Job Done!'
+				;;
+			*)
+				echo 'Aborted!'
+				;;
+		esac
+	else
+		vared -p "Folder to be cleaned : " -c cleantgt
+		metaclean $cleantgt
+	fi
+}
