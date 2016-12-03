@@ -10,6 +10,10 @@ if (( ! $+commands[ping] )); then
   return 1
 fi
 
+# other myprezto modules tweaks
+# I know what I'm doing with my redirections? ; )
+unsetopt noclobber
+
 #
 # Aliases
 #
@@ -32,8 +36,8 @@ alias s="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 
 ##### ------ alias clean / clear / sync / rm, all ; )
 # Disk & Memory
-alias ddclean="sudo rm -rfv /Volumes/*/.Trashes ; sudo rm-rfv ~/.Trash ; sudo rm -rfv /private/var/log/asl/*.asl"
-alias memclean="sudo sync && sudo purge"
+alias ddclean="sudo rm -rfv /Volumes/*/.Trashes ; sudo rm -rfv ~/.Trash ; sudo rm -rfv /private/var/log/asl/*.asl"
+alias memclean="sudo sync && sudo purge && sudo rm /private/var/vm/swapfile*"
 
 # Fowarding and proxying
 alias mdoors="ssh -L 12445:172.31.14.15:3389 -L 12022:172.31.14.18:22 -L 12900:172.31.14.18:5900"
