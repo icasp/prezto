@@ -24,6 +24,7 @@ alias rr="exec zsh"
 # Quick shortcuts
 alias pg="ping www.google.fr"
 #alias ls="ls -hG"
+alias less='less -rNqg'
 alias myaliases="grep alias ~/.zprezto/modules/$(whoami)/init.zsh"
 alias myprezto="cd ~/.zprezto/modules/$(whoami)"
 alias issh="ssh -L icasp"
@@ -34,6 +35,7 @@ alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
 
 # Fast App Opener
 alias s="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
+alias plexscreen="screen -x plex || screen -S plex -c ~/.screenrc.d/plex-screen"
 
 ##### ------ alias clean / clear / sync / rm, all ; )
 # Disk & Memory
