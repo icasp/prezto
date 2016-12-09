@@ -1,0 +1,3 @@
+function unbase() {
+	echo $(echo $1 | base64 -D)'\r'
+}

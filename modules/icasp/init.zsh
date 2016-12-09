@@ -34,6 +34,7 @@ alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
 
 # Fast App Opener
+alias a="atom"
 alias s="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 alias plexscreen="screen -x plex || screen -S plex -c ~/.screenrc.d/plex-screen"
 
@@ -44,7 +45,7 @@ alias memclean="sudo sync && sudo purge && sudo rm /private/var/vm/swapfile*"
 alias msclean="find . -path './[DOW]*' -name '~*' -exec rm -f {} \;"
 
 # Fowarding and proxying
-alias mdoors="ssh -L 12445:172.31.14.15:3389 -L 12022:172.31.14.18:22 -L 12900:172.31.14.18:5900"
+alias mdoors="ssh -L 12445:172.31.14.15:3389 -L 12022:172.31.14.18:22 -L 12900:172.31.14.18:5900 -L 12400:172.31.14.18:32400"
 alias mproxy="ssh -C2qTnN -D 12480"
 
 # Dev environments
