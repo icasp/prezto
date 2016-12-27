@@ -24,7 +24,12 @@ alias rr="exec zsh"
 # Quick shortcuts
 alias pg="ping www.google.fr"
 #alias ls="ls -hG"
+<<<<<<< HEAD
 alias myaliases="grep alias ~/.zprezto/modules/icasp/init.zsh"
+=======
+alias less='less -rNqg'
+alias myaliases="grep alias ~/.zprezto/modules/$(whoami)/init.zsh"
+>>>>>>> 850a77d9da8b878a7e752a2b51f6ac6d2df43c0e
 alias myprezto="cd ~/.zprezto/modules/$(whoami)"
 alias issh="ssh -L icasp"
 
@@ -33,7 +38,9 @@ alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
 
 # Fast App Opener
+alias a="atom"
 alias s="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
+alias plexscreen="screen -x plex || screen -S plex -c ~/.screenrc.d/plex-screen"
 
 ##### ------ alias clean / clear / sync / rm, all ; )
 # Disk & Memory
@@ -42,7 +49,7 @@ alias memclean="sudo sync && sudo purge && sudo rm /private/var/vm/swapfile*"
 alias msclean="find . -path './[DOW]*' -name '~*' -exec rm -f {} \;"
 
 # Fowarding and proxying
-alias mdoors="ssh -L 12445:172.31.14.15:3389 -L 12022:172.31.14.18:22 -L 12900:172.31.14.18:5900"
+alias mdoors="ssh -L 12445:172.31.14.15:3389 -L 12022:172.31.14.18:22 -L 12900:172.31.14.18:5900 -L 12400:172.31.14.18:32400"
 alias mproxy="ssh -C2qTnN -D 12480"
 
 # Dev environments
