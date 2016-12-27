@@ -24,12 +24,8 @@ alias rr="exec zsh"
 # Quick shortcuts
 alias pg="ping www.google.fr"
 #alias ls="ls -hG"
-<<<<<<< HEAD
 alias myaliases="grep alias ~/.zprezto/modules/icasp/init.zsh"
-=======
 alias less='less -rNqg'
-alias myaliases="grep alias ~/.zprezto/modules/$(whoami)/init.zsh"
->>>>>>> 850a77d9da8b878a7e752a2b51f6ac6d2df43c0e
 alias myprezto="cd ~/.zprezto/modules/$(whoami)"
 alias issh="ssh -L icasp"
 
