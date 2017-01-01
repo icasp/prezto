@@ -26,7 +26,7 @@ alias pg="ping www.google.fr"
 #alias ls="ls -hG"
 alias myaliases="grep alias ~/.zprezto/modules/icasp/init.zsh"
 alias less='less -rNqg'
-alias myprezto="cd ~/.zprezto/modules/$(whoami)"
+alias myprezto="cd ~/.zprezto/modules/icasp"
 alias issh="ssh -L icasp"
 
 # Networking
