@@ -6,7 +6,7 @@ function metaclean ()
 		vared -p "Go for '$1' ? [y/N] : " -c confirm
 		case "$confirm" in
 			[Yy*]);
-				find -E $1 -regex '/.*/(\._[^/]*|\.DS_Store|Thumbs.db)' -exec rm -f {} \;
+				find -E $1 -regex '/.*/(\._[^/]*|~.+|\.DS_Store|Thumbs.db)' -exec rm -f {} \;
 				echo 'Job Done!'
 				;;
 			*)
