@@ -44,8 +44,9 @@ typeset -gU cdpath fpath mailpath path
 # Set the list of directories that Zsh searches for programs.
 path=(
 	$HOME/Toolbox
-  /usr/local/{bin,sbin}
-  $path
+	/usrlocal/{bin,sbin}
+	/Library/Frameworks/Python.framework/Versions/3.{4,5}/bin
+	$path
 )
 
 #
