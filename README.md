@@ -1,3 +1,21 @@
+This fork has shut down
+=======================
+
+This fork is deprecated and is no longer reviewing or merging changes. Please
+rebase / re-clone [the original repo][original] and open new issues and PRs
+there.
+
+This repo serves as historical record of the fork.
+
+- https://github.com/zsh-users/prezto/issues/44
+- https://github.com/zsh-users/prezto/issues/26
+- https://github.com/sorin-ionescu/prezto/issues/1239
+- https://github.com/sorin-ionescu/prezto/issues/1269
+
+&mdash; @facastagnini, @johnpneumann, and @paulmelnikow
+
+* * *
+
 [![Gitter](https://badges.gitter.im/zsh-users/prezto.svg)](https://gitter.im/zsh-users/prezto?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 Prezto — Instantly Awesome Zsh
@@ -5,9 +23,26 @@ Prezto — Instantly Awesome Zsh
 
 Prezto is the configuration framework for [Zsh][1]; it enriches the command line
 interface environment with sane defaults, aliases, functions, auto completion,
-and prompt themes. 
+and prompt themes.
 
-This repository is being actively maintained by a community of users. 
+Upgrading from sorin-ionescu/prezto
+-----------------------------------
+
+Prezto's [original maintainer][original] abandoned the project. This is a
+young, community-maintained fork, which was created [in December 2016][fork].
+
+To upgrade your Prezto installation to use the new fork, run these commands:
+
+    cd "${ZDOTDIR:-$HOME}/.zprezto"
+    git remote set-url origin https://github.com/zsh-users/prezto.git
+    git pull
+    git submodule update --init --recursive
+
+This assumes a typical installation. If you have forked or modified the
+project your steps may vary.
+
+[original]: https://github.com/sorin-ionescu/prezto
+[fork]: https://github.com/sorin-ionescu/prezto#1239
 
 Installation
 ------------
@@ -46,7 +81,17 @@ window or tab.
 Updating
 --------
 
-Pull the latest changes and update submodules.
+Make sure you are tracking this fork:
+
+    $ git remote -v
+    origin  https://github.com/zsh-users/prezto.git (fetch)
+    origin  https://github.com/zsh-users/prezto.git (push)
+
+If you see `sorin-ionescu` instead of `zsh-users`, update your remote:
+
+    git remote set-url origin https://github.com/zsh-users/prezto.git
+
+Then pull the latest changes and update submodules.
 
     git pull && git submodule update --init --recursive
 
@@ -84,32 +129,19 @@ Resources
 
 The [Zsh Reference Card][7] and the [zsh-lovers][8] man page are indispensable.
 
+Project leaders
+---------------
+
+These are the active contributors that donate time on a consistent basis to help guide the project:
+
+* [facastagnini](https://github.com/facastagnini)
+* [johnpneumann](https://github.com/johnpneumann)
+* [paulmelnikow](https://github.com/paulmelnikow)
+
 License
 -------
 
-(The MIT License)
-
-Copyright (c) 2009-2011 Robby Russell and contributors.
-
-Copyright (c) 2011-2015 Sorin Ionescu and contributors.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-of the Software, and to permit persons to whom the Software is furnished to do
-so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+This project is licensed under the MIT License.
 
 [1]: http://www.zsh.org
 [2]: http://i.imgur.com/nrGV6pg.png "sorin theme"
