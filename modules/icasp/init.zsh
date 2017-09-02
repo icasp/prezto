@@ -32,6 +32,8 @@ alias issh="ssh -L icasp"
 # Networking
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
+alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport"
+alias mtr="/usr/local/Cellar/mtr/*/sbin/mtr"
 
 # Fast App Opener
 alias a="atom"
