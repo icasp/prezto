@@ -1,23 +1,3 @@
-This fork has shut down
-=======================
-
-This fork is deprecated and is no longer reviewing or merging changes. Please
-rebase / re-clone [the original repo][original] and open new issues and PRs
-there.
-
-This repo serves as historical record of the fork.
-
-- https://github.com/zsh-users/prezto/issues/44
-- https://github.com/zsh-users/prezto/issues/26
-- https://github.com/sorin-ionescu/prezto/issues/1239
-- https://github.com/sorin-ionescu/prezto/issues/1269
-
-&mdash; @facastagnini, @johnpneumann, and @paulmelnikow
-
-* * *
-
-[![Gitter](https://badges.gitter.im/zsh-users/prezto.svg)](https://gitter.im/zsh-users/prezto?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-
 Prezto — Instantly Awesome Zsh
 ==============================
 
@@ -52,21 +32,25 @@ version is 4.3.17.
 
   1. Launch Zsh:
 
-        `zsh`
+     ```console
+     zsh
+     ```
 
   2. Clone the repository:
 
-        `git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"`
+     ```console
+     git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+     ```
 
   3. Create a new Zsh configuration by copying the Zsh configuration files
      provided:
 
-        ```
-        setopt EXTENDED_GLOB
-        for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-          ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-        done
-        ```
+     ```sh
+     setopt EXTENDED_GLOB
+     for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+       ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+     done
+     ```
 
      Note: If you already have any of the given config files, ln will error. In
      simple cases you can add `source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"` to
@@ -76,7 +60,9 @@ version is 4.3.17.
 
   4. Set Zsh as your default shell:
 
-        `chsh -s /bin/zsh`
+     ```console
+     chsh -s /bin/zsh
+     ```
 
   5. Open a new Zsh terminal window or tab.
 
@@ -89,19 +75,18 @@ window or tab.
 Updating
 --------
 
-Make sure you are tracking this fork:
+Run `zprezto-update` to automatically check if there is an update to zprezto.
+If there are no file conflicts, zprezto and its submodules will be
+automatically updated. If there are conflicts you will instructed to go into
+the `$ZPREZTODIR` directory and resolve them yourself.
 
-    $ git remote -v
-    origin  https://github.com/zsh-users/prezto.git (fetch)
-    origin  https://github.com/zsh-users/prezto.git (push)
+To pull the latest changes and update submodules manually:
 
-If you see `sorin-ionescu` instead of `zsh-users`, update your remote:
-
-    git remote set-url origin https://github.com/zsh-users/prezto.git
-
-Then pull the latest changes and update submodules.
-
-    git pull && git submodule update --init --recursive
+```console
+cd $ZPREZTODIR
+git pull
+git submodule update --init --recursive
+```
 
 Usage
 -----
