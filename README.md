@@ -5,25 +5,6 @@ Prezto is the configuration framework for [Zsh][1]; it enriches the command line
 interface environment with sane defaults, aliases, functions, auto completion,
 and prompt themes.
 
-Upgrading from sorin-ionescu/prezto
------------------------------------
-
-Prezto's [original maintainer][original] abandoned the project. This is a
-young, community-maintained fork, which was created [in December 2016][fork].
-
-To upgrade your Prezto installation to use the new fork, run these commands:
-
-    cd "${ZDOTDIR:-$HOME}/.zprezto"
-    git remote set-url origin https://github.com/zsh-users/prezto.git
-    git pull
-    git submodule update --init --recursive
-
-This assumes a typical installation. If you have forked or modified the
-project your steps may vary.
-
-[original]: https://github.com/sorin-ionescu/prezto
-[fork]: https://github.com/sorin-ionescu/prezto#1239
-
 Installation
 ------------
 
