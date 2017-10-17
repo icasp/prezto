@@ -37,7 +37,7 @@ alias mtr="/usr/local/Cellar/mtr/*/sbin/mtr"
 
 # Fast App Opener
 alias a="atom"
-alias s="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
+alias s="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 alias plexscreen="screen -x plex || screen -S plex -c ~/.screenrc.d/plex-screen"
 
 ##### ------ alias clean / clear / sync / rm, all ; )
