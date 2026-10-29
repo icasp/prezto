@@ -11,7 +11,12 @@
 pmodload 'helper' 'spectrum'
 
 # Correct commands.
-setopt CORRECT
+if zstyle -T ':prezto:module:utility' correct; then
+  setopt CORRECT
+fi
+
+# Load 'run-help' function.
+autoload -Uz run-help-{ip,openssl,sudo}
 
 #
 # Aliases
@@ -41,8 +46,8 @@ alias ftp='noglob ftp'
 alias history='noglob history'
 alias locate='noglob locate'
 alias rake='noglob rake'
-alias rsync='noglob noremoteglob rsync'
-alias scp='noglob noremoteglob scp'
+alias rsync='noglob rsync'
+alias scp='noglob scp'
 alias sftp='noglob sftp'
 
 # Define general aliases.
@@ -59,27 +64,36 @@ alias sa='alias | grep -i'
 alias type='type -a'
 
 # Safe ops. Ask the user before doing anything destructive.
-alias rmi="${aliases[rm]:-rm} -i"
-alias mvi="${aliases[mv]:-mv} -i"
 alias cpi="${aliases[cp]:-cp} -i"
 alias lni="${aliases[ln]:-ln} -i"
+alias mvi="${aliases[mv]:-mv} -i"
+alias rmi="${aliases[rm]:-rm} -i"
 if zstyle -T ':prezto:module:utility' safe-ops; then
-  alias rm='rmi'
-  alias mv='mvi'
-  alias cp='cpi'
-  alias ln='lni'
+  alias cp="${aliases[cp]:-cp} -i"
+  alias ln="${aliases[ln]:-ln} -i"
+  alias mv="${aliases[mv]:-mv} -i"
+  alias rm="${aliases[rm]:-rm} -i"
 fi
 
 # ls
-if is-callable 'dircolors'; then
+_ls_version="$(ls --version 2>&1)"
+
+if [[ ${(@M)${(f)_ls_version}:#*(GNU|lsd|uutils) *} ]]; then
   # GNU Core Utilities
-  alias ls='ls --group-directories-first'
+
+  if zstyle -T ':prezto:module:utility:ls' dirs-first; then
+    alias ls="${aliases[ls]:-ls} --group-directories-first"
+  fi
 
   if zstyle -t ':prezto:module:utility:ls' color; then
-    if [[ -s "$HOME/.dir_colors" ]]; then
-      eval "$(dircolors --sh "$HOME/.dir_colors")"
-    else
-      eval "$(dircolors --sh)"
+    # Define colors for GNU ls if they're not already defined
+    if (( ! $+LS_COLORS )); then
+      # Try dircolors when available
+      if is-callable 'dircolors'; then
+        eval "$(dircolors --sh $HOME/.dir_colors(N))"
+      else
+        export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg=36;40;07:tw=32;40;07:ow=33;40;07:'
+      fi
     fi
 
     alias ls="${aliases[ls]:-ls} --color=auto"
@@ -88,14 +102,17 @@ if is-callable 'dircolors'; then
   fi
 else
   # BSD Core Utilities
-  if zstyle -t ':prezto:module:utility:ls' color; then
-    # Define colors for BSD ls.
-    #prezto default export LSCOLORS='exfxcxdxbxGxDxabagacad'
-    export LSCOLORS="ExGxFxdaCxDADAadhbheFx"
 
-    # Define colors for the completion system.
-    #prezto default export LS_COLORS='di=34:ln=35:or=41:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg=36;40;07:tw=32;40;07:ow=33;40;07:'
-    export LS_COLORS="di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=01;05;37;41:mi=01;05;37;41:su=37;41:sg=30;43:tw=30;42:ow=34;42:st=37;44:ex=01;32"
+  if zstyle -t ':prezto:module:utility:ls' color; then
+    # Define colors for BSD ls if they're not already defined (local palette).
+    if (( ! $+LSCOLORS )); then
+      export LSCOLORS="ExGxFxdaCxDADAadhbheFx"
+    fi
+
+    # Define colors for the completion system (local palette).
+    if (( ! $+LS_COLORS )); then
+      export LS_COLORS="di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=01;05;37;41:mi=01;05;37;41:su=37;41:sg=30;43:tw=30;42:ow=34;42:st=37;44:ex=01;32"
+    fi
 
     alias ls="${aliases[ls]:-ls} -G"
   else
@@ -108,28 +125,36 @@ alias ll='ls -lh'        # Lists human readable sizes.
 alias lr='ll -R'         # Lists human readable sizes, recursively.
 alias la='ll -A'         # Lists human readable sizes, hidden files.
 alias lm='la | "$PAGER"' # Lists human readable sizes, hidden files through pager.
-alias lx='ll -XB'        # Lists sorted by extension (GNU only).
 alias lk='ll -Sr'        # Lists sorted by size, largest last.
 alias lt='ll -tr'        # Lists sorted by date, most recent last.
 alias lc='lt -c'         # Lists sorted by date, most recent last, shows change time.
 alias lu='lt -u'         # Lists sorted by date, most recent last, shows access time.
-alias sl='ls'            # I often screw this up.
+
+if [[ ${(@M)${(f)_ls_version}:#*GNU *} ]]; then
+  alias lx='ll -XB'      # Lists sorted by extension (GNU only).
+fi
+
+unset _ls_version
 
 # Grep
 if zstyle -t ':prezto:module:utility:grep' color; then
-  export GREP_COLOR='37;45'           # BSD.
-  export GREP_COLORS="mt=$GREP_COLOR" # GNU.
+  export GREP_COLOR=${GREP_COLOR:-'37;45'}            # BSD.
+  export GREP_COLORS=${GREP_COLORS:-"mt=$GREP_COLOR"} # GNU.
 
   alias grep="${aliases[grep]:-grep} --color=auto"
 fi
 
-# Mac OS X Everywhere
-if [[ "$OSTYPE" == darwin* ]]; then
+# macOS Everywhere
+if is-darwin; then
   alias o='open'
-elif [[ "$OSTYPE" == cygwin* ]]; then
+elif is-cygwin; then
   alias o='cygstart'
   alias pbcopy='tee > /dev/clipboard'
   alias pbpaste='cat /dev/clipboard'
+elif is-termux; then
+  alias o='termux-open'
+  alias pbcopy='termux-clipboard-set'
+  alias pbpaste='termux-clipboard-get'
 else
   alias o='xdg-open'
 
@@ -146,22 +171,27 @@ alias pbc='pbcopy'
 alias pbp='pbpaste'
 
 # File Download
-if (( $+commands[curl] )); then
-  alias get='curl --continue-at - --location --progress-bar --remote-name --remote-time'
-elif (( $+commands[wget] )); then
-  alias get='wget --continue --progress=bar --timestamping'
+zstyle -s ':prezto:module:utility:download' helper '_download_helper' || _download_helper='curl'
+
+typeset -A _download_helpers=(
+  aria2c  'aria2c --continue --remote-time --max-tries=0'
+  curl    'curl --continue-at - --location --progress-bar --remote-name --remote-time'
+  wget    'wget --continue --progress=bar --timestamping'
+)
+
+if (( $+commands[$_download_helper] && $+_download_helpers[$_download_helper] )); then
+  alias get="$_download_helpers[$_download_helper]"
+elif (( $+commands[curl] )); then
+  alias get="$_download_helpers[curl]"
 fi
+
+unset _download_helper{,s}
 
 # Resource Usage
-if (( $+commands[pydf] )); then
-  alias df=pydf
-else
-  alias df='df -kh'
-fi
-
+alias df='df -kh'
 alias du='du -kh'
 
-if [[ "$OSTYPE" == (darwin*|*bsd*) ]]; then
+if is-darwin || is-bsd; then
   alias topc='top -o cpu'
   alias topm='top -o vsize'
 else
@@ -172,10 +202,17 @@ fi
 # Miscellaneous
 
 # Serves a directory via HTTP.
-if (( $+commands[python3] )); then
-  alias http-serve='python3 -m http.server'
-else
-  alias http-serve='python -m SimpleHTTPServer'
+if (( $#commands[(i)python(|[23])] )); then
+  autoload -Uz is-at-least
+  if (( $+commands[python3] )); then
+    alias http-serve='python3 -m http.server'
+  elif (( $+commands[python2] )); then
+    alias http-serve='python2 -m SimpleHTTPServer'
+  elif is-at-least 3 ${"$(python --version 2>&1)"[(w)2]}; then
+    alias http-serve='python -m http.server'
+  else
+    alias http-serve='python -m SimpleHTTPServer'
+  fi
 fi
 
 #
@@ -225,6 +262,10 @@ function psu {
 # Example:
 #   - Local: '*.txt', './foo:2017*.txt', '/var/*:log.txt'
 #   - Remote: user@localhost:foo/
+#
+# NOTE: This function is buggy and is not used anywhere until we can make sure
+# it's fixed. See https://github.com/sorin-ionescu/prezto/issues/1443 and
+# https://github.com/sorin-ionescu/prezto/issues/1521 for more information.
 function noremoteglob {
   local -a argo
   local cmd="$1"

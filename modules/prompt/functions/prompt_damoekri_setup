@@ -40,6 +40,9 @@ function prompt_damoekri_setup {
   # Add hook for calling git-info and ruby-info before each command.
   add-zsh-hook precmd prompt_damoekri_precmd
 
+  # Tell prezto we can manage this prompt
+  zstyle ':prezto:module:prompt' managed 'yes'
+
   # Set editor-info parameters.
   zstyle ':prezto:module:editor:info:keymap:primary' format ' %F{green}»%f'
 
@@ -59,7 +62,8 @@ function prompt_damoekri_setup {
 
   # Define prompts.
   PROMPT='%F{cyan}${_prompt_damoekri_pwd}%f${editor_info[keymap]} '
-  RPROMPT='${git_info:+${(e)git_info[rprompt]}}${ruby_info:+${ruby_info[version]}}'
+  RPROMPT='${git_info:+$(escape-eval "${(e)git_info[rprompt]}")}${ruby_info:+$(escape-eval "${(e)ruby_info[version]}")}'
 }
 
 prompt_damoekri_setup "$@"
+# vim: ft=zsh

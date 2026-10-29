@@ -7,7 +7,7 @@
 #
 
 # Return if requirements are not found.
-if [[ "$TERM" == 'dumb' ]]; then
+if [[ $TERM == dumb ]]; then
   return 1
 fi
 
@@ -49,21 +49,25 @@ FX=(
   font-fifth                "\e[15m"    no-font-fifth                "\e[10m"
   font-sixth                "\e[16m"    no-font-sixth                "\e[10m"
   font-seventh              "\e[17m"    no-font-seventh              "\e[10m"
-  font-eigth                "\e[18m"    no-font-eigth                "\e[10m"
+  font-eighth               "\e[18m"    no-font-eighth               "\e[10m"
   font-ninth                "\e[19m"    no-font-ninth                "\e[10m"
 )
 
 FG[none]="$FX[none]"
 BG[none]="$FX[none]"
 colors=(black red green yellow blue magenta cyan white)
-for color in {0..255}; do
-  if (( $color >= 0 )) && (( $color < $#colors )); then
-    index=$(( $color + 1 ))
-    FG[$colors[$index]]="\e[38;5;${color}m"
-    BG[$colors[$index]]="\e[48;5;${color}m"
-  fi
 
+# Named ANSI colors (0–7) have both numeric and name keys.
+for color in {0..7}; do
+  FG[$colors[color+1]]="\e[38;5;${color}m"
+  BG[$colors[color+1]]="\e[48;5;${color}m"
   FG[$color]="\e[38;5;${color}m"
   BG[$color]="\e[48;5;${color}m"
 done
-unset color{s,} index
+
+# Remaining 256-color indices have only numeric keys.
+for color in {8..255}; do
+  FG[$color]="\e[38;5;${color}m"
+  BG[$color]="\e[48;5;${color}m"
+done
+unset color{s,}

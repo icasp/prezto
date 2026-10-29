@@ -40,6 +40,9 @@ function prompt_kylewest_setup {
   # Add hook for calling git-info before each command.
   add-zsh-hook precmd prompt_kylewest_precmd
 
+  # Tell prezto we can manage this prompt
+  zstyle ':prezto:module:prompt' managed 'yes'
+
   # Set editor-info parameters.
   zstyle ':prezto:module:editor:info:completing' format '%B%F{red}...%f%b'
   zstyle ':prezto:module:editor:info:keymap:primary' format "%B%F{green}❯%f%b"
@@ -58,8 +61,9 @@ function prompt_kylewest_setup {
   zstyle ':prezto:module:ruby:info:version' format '%F{blue}[%v]%f'
 
   # Define prompts.
-  PROMPT='%F{cyan}%c%f ${git_info:+${(e)git_info[prompt]}}${editor_info[keymap]} '
+  PROMPT='%F{cyan}%c%f ${git_info:+$(escape-eval ${(e)git_info[prompt]})}${editor_info[keymap]} '
   RPROMPT='${ruby_info[version]}'
 }
 
 prompt_kylewest_setup "$@"
+# vim: ft=zsh

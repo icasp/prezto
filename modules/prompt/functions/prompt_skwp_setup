@@ -36,6 +36,9 @@ function prompt_skwp_setup {
   # Add hook to set up prompt parameters before each command.
   add-zsh-hook precmd prompt_skwp_precmd
 
+  # Tell prezto we can manage this prompt
+  zstyle ':prezto:module:prompt' managed 'yes'
+
   # Use extended color pallete if available.
   if [[ $TERM = *256color* || $TERM = *rxvt* ]]; then
     _prompt_skwp_colors=(
@@ -68,8 +71,9 @@ function prompt_skwp_setup {
   zstyle ':prezto:module:ruby:info:version' format '[%v]'
 
   # Define prompts.
-  PROMPT="${_prompt_skwp_colors[3]}%n%f@${_prompt_skwp_colors[2]}%m%f ${_prompt_skwp_colors[5]}%~%f "'${git_info:+${(e)git_info[prompt]}}'"$ "
+  PROMPT="${_prompt_skwp_colors[3]}%n%f@${_prompt_skwp_colors[2]}%m%f ${_prompt_skwp_colors[5]}%~%f "'${git_info:+$(escape-eval "${(e)git_info[prompt]}")}'"$ "
   RPROMPT='%F{blue}${ruby_info[version]}'
 }
 
 prompt_skwp_setup "$@"
+# vim: ft=zsh

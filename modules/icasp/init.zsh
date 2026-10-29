@@ -47,7 +47,7 @@ alias memclean="sudo sync && sudo purge && sudo rm /private/var/vm/swapfile*"
 alias msclean="find . -path './[DOW]*' -name '~*' -exec rm -f {} \;"
 
 # Fowarding and proxying
-alias mdoors="ssh -L 12445:172.31.14.15:3389 -L 12022:172.31.14.18:22 -L 12900:172.31.14.18:5900 -L 12400:172.31.14.18:32400"
+# mdoors (internal IPs) lives in the untracked ~/.zprezto-local.zsh
 alias mproxy="ssh -C2qTnN -D 12480"
 
 # Dev environments
@@ -60,3 +60,8 @@ export qcow
 alias dqcowstatus="file $qcow && du -hs $qcow"
 alias dscreen="screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty"
 
+#
+# Local, untracked overrides (private aliases such as mdoors)
+#
+
+[[ -r "$HOME/.zprezto-local.zsh" ]] && source "$HOME/.zprezto-local.zsh"
