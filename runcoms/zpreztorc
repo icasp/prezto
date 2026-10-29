@@ -47,6 +47,15 @@ zstyle ':prezto:load' pmodule \
   'icasp'
 
 #
+# History
+#
+
+# Keep the pre-merge history file and size (upstream default is ~/.zsh_history, 10000).
+zstyle ':prezto:module:history' histfile "${ZDOTDIR:-$HOME}/.zhistory"
+zstyle ':prezto:module:history' histsize 80000
+zstyle ':prezto:module:history' savehist 80000
+
+#
 # Autosuggestions
 #
 
