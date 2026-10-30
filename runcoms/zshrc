@@ -13,3 +13,6 @@ fi
 # Customize to your needs...
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+
+# harnessmgt personal overlay
+[ -f /Users/benoit.richeux/git/harnessmgt-personal/shell.zsh ] && source /Users/benoit.richeux/git/harnessmgt-personal/shell.zsh
